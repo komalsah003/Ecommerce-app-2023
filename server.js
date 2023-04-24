@@ -38,3 +38,4 @@ app.listen(PORT, () => {
 
 //through node = npm start
 //through nodemon so that changes will be appeared directly = npm run server
+//client folder -> then run -> npm start
