@@ -91,12 +91,3 @@ font-family: 'Poppins', sans-serif; */
   align-items: center;
   justify-content: center;
 }
-
-/* ======== Register   ======== */
-.register{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 70vh;
-}
