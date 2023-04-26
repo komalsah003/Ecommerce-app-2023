@@ -80,3 +80,23 @@ font-family: 'Poppins', sans-serif; */
   padding: 10px;
   margin-top: 10px;
 }
+
+
+/* ======== contact us   ======== */
+.contactus{
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ======== Register   ======== */
+.register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
+}
