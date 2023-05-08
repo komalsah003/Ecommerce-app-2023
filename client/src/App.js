@@ -8,12 +8,17 @@ import Register from "./Pages/Auth/Register";
 import Login from "./Pages/Auth/Login";
 // import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./Pages/User/Dashboard";
+import PrivateRoute from "./components/Routes/Private";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
