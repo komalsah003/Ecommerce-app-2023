@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Layout from "../../components/Layout/Layout";
+import Layout from "./../../components/Layout/Layout";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 // import { toast } from "react-toastify";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -12,9 +12,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setaddress] = useState("");
+  const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
-  //submit
+  //submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,10 +25,11 @@ const Register = () => {
         password,
         phone,
         address,
+        answer,
       });
 
       if (res && res.data.success) {
-        toast.success(res.data.message);
+        toast.success(res.data && res.data.message);
         navigate("/login");
       } else {
         toast.error(res.data.message);
@@ -46,8 +48,8 @@ const Register = () => {
           <div className="mb-3">
             <input
               type="text"
-              onChange={(e) => setName(e.target.value)}
               value={name}
+              onChange={(e) => setName(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter Your Name"
@@ -84,7 +86,7 @@ const Register = () => {
               onChange={(e) => setPhone(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter Your Contact Number"
+              placeholder="Enter Your Phone Number"
               required
             />
           </div>
@@ -99,8 +101,19 @@ const Register = () => {
               required
             />
           </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="What is your favorite pet?"
+              required
+            />
+          </div>
           <button type="submit" className="btn btn-primary">
-            CREATE
+            Register
           </button>
         </form>
       </div>

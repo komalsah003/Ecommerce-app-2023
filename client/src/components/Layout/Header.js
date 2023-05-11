@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
-// import { GiShoppingBag } from "react-icons/gi";
 import { toast } from "react-hot-toast";
 
 const Header = () => {
@@ -44,7 +43,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <NavLink to="/catagory" className="nav-link">
-                  Catagory
+                  Catagories
                 </NavLink>
               </li>
               {!auth.user ? (
@@ -62,20 +61,43 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <li className="nav-item">
+                  <li className="nav-item dropdown">
                     <NavLink
-                      onClick={handleLogOut}
-                      to="/login"
-                      className="nav-link"
+                      className="nav-link dropdown-toggle"
                       href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      // aria-expanded="false"
+                      style={{ border: "none" }}
                     >
-                      LogOut
+                      {auth?.user?.name}
                     </NavLink>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <NavLink
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                          className="dropdown-item"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          onClick={handleLogOut}
+                          to="/login"
+                          className="dropdown-item"
+                        >
+                          LogOut
+                        </NavLink>
+                      </li>
+                    </ul>
                   </li>
                 </>
               )}
               <li className="nav-item">
-                <NavLink to="/cart" className="nav-link" href="#">
+                <NavLink to="/cart" className="nav-link">
                   Cart(0)
                 </NavLink>
               </li>
