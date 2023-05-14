@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout/Layout";
-import AdminMenu from "../../components/Layout/AdminMenu";
+import Layout from "./../../components/Layout/Layout";
+import AdminMenu from "./../../components/Layout/AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Select } from "antd";
@@ -48,15 +48,15 @@ const CreateProduct = () => {
       productData.append("category", category);
       productData.append("shipping", shipping);
 
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         "/api/v1/product/create-product",
         productData
       );
       if (data?.success) {
-        toast.error(data?.message);
-      } else {
         toast.success("Product created successfully");
         navigate("/dashboard/admin/products");
+      } else {
+        toast.error(data?.message);
       }
     } catch (error) {
       console.log(error);
@@ -123,7 +123,7 @@ const CreateProduct = () => {
                   value={name}
                   placeholder="Name of the product"
                   className="form-control"
-                  onChange={(e) => setName(e.taregt.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
 
@@ -133,7 +133,7 @@ const CreateProduct = () => {
                   value={description}
                   placeholder="Write the description"
                   className="form-control"
-                  onChange={(e) => setDescription(e.taregt.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
 
@@ -143,7 +143,7 @@ const CreateProduct = () => {
                   value={price}
                   placeholder="Add price of the product"
                   className="form-control"
-                  onChange={(e) => setPrice(e.taregt.value)}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
 
@@ -153,7 +153,7 @@ const CreateProduct = () => {
                   value={quantity}
                   placeholder="Add the quantity of the item"
                   className="form-control"
-                  onChange={(e) => setQuantity(e.taregt.value)}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
 

@@ -91,3 +91,9 @@ font-family: 'Poppins', sans-serif; */
   align-items: center;
   justify-content: center;
 }
+
+.product-link
+{
+  text-decoration: none;
+  color: black !important;
+}
