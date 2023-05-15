@@ -21,7 +21,6 @@ router.post(
   createProductController
 );
 
-//update product
 router.put(
   "/update-product/:pid",
   requireSignIn,
@@ -33,13 +32,10 @@ router.put(
 //get product
 router.get("/get-product", getProductController);
 
-//get single product
-router.get("/single-product/:slug", getSingleProductController);
+router.get("/get-product/:slug", getSingleProductController);
 
-//get product photo
-router.get("/get-photo/:pid", getProductPhotoController);
+router.get("/product-photo/:pid", getProductPhotoController);
 
-//delete product
-router.delete("/deleteProduct/:pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 
 export default router;

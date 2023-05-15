@@ -1,14 +1,14 @@
 import slugify from "slugify";
+// import categoryModel from "../models/categoryModel.js";
 import productModel from "../models/productModel.js";
 import fs from "fs";
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, slug, description, price, category, quantity, shipping } =
+    const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
 
-    //validation
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is required" });
@@ -72,11 +72,10 @@ export const getProductController = async (req, res) => {
   }
 };
 
-//get single product
 export const getSingleProductController = async (req, res) => {
   try {
     const singleProduct = await productModel
-      .find({ slug: req.params.slug })
+      .findOne({ slug: req.params.slug })
       .select("-photo")
       .populate("category");
     res.status(200).send({
@@ -94,7 +93,6 @@ export const getSingleProductController = async (req, res) => {
   }
 };
 
-//get photo
 export const getProductPhotoController = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.pid).select("photo");
@@ -106,13 +104,12 @@ export const getProductPhotoController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while getting product photo",
+      message: "Error while fetching product photo",
       error,
     });
   }
 };
 
-//delete product
 export const deleteProductController = async (req, res) => {
   try {
     await productModel.findByIdAndDelete(req.params.pid).select("-photo");
@@ -130,14 +127,12 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-//update product
 export const updateProductController = async (req, res) => {
   try {
-    const { name, slug, description, price, category, quantity, shipping } =
+    const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
 
-    //validation
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is required" });
@@ -167,7 +162,7 @@ export const updateProductController = async (req, res) => {
     }
 
     await products.save();
-    return res.status(201).send({
+    res.status(201).send({
       success: true,
       message: "Product updated successfully",
       products,

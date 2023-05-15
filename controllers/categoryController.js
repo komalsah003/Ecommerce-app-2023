@@ -1,7 +1,6 @@
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel.js";
 
-//create category
 export const createCategoryController = async (req, res) => {
   try {
     const { name } = req.body;
@@ -36,7 +35,6 @@ export const createCategoryController = async (req, res) => {
   }
 };
 
-//update category
 export const updateCategoryConrtoller = async (req, res) => {
   try {
     const { name } = req.body;
@@ -61,7 +59,6 @@ export const updateCategoryConrtoller = async (req, res) => {
   }
 };
 
-//all category
 export const categoryController = async (req, res) => {
   try {
     const category = await categoryModel.find({});
@@ -80,7 +77,6 @@ export const categoryController = async (req, res) => {
   }
 };
 
-//get single catgeory
 export const singleCategoryController = async (req, res) => {
   try {
     const category = await categoryModel.findOne({ slug: req.params.slug });
@@ -99,7 +95,6 @@ export const singleCategoryController = async (req, res) => {
   }
 };
 
-//delete category
 export const deleteCategoryController = async (req, res) => {
   try {
     const { id } = req.params;
