@@ -1,19 +1,18 @@
+import axios from "axios";
+import { Modal } from "antd";
+import toast from "react-hot-toast";
 import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout/Layout";
 import AdminMenu from "./../../components/Layout/AdminMenu";
-import axios from "axios";
-import toast from "react-hot-toast";
 import CategoryForm from "../../components/Form/CategoryForm";
-import { Modal } from "antd";
 
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [visibled, setVisibled] = useState(false);
   const [selected, setSelected] = useState(null);
   const [updatedName, setUpdatedName] = useState("");
 
-  //handle form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,11 +27,10 @@ const CreateCategory = () => {
       }
     } catch (error) {
       console.log(error);
-      // toast.error("Something went wrong in the input form");
+      toast.error("Something went wrong in the input form");
     }
   };
 
-  //get all category
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
@@ -49,7 +47,6 @@ const CreateCategory = () => {
     getAllCategory();
   }, []);
 
-  //update category
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -62,37 +59,38 @@ const CreateCategory = () => {
         toast.success(`${updatedName} is updated`);
         setSelected(null);
         setUpdatedName("");
-        setVisible(false);
+        setVisibled(false);
         getAllCategory();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      console.log(error);
+      toast.error("Something went wrong while updating category name");
     }
   };
 
-  //delete category
-  const handleDelete = async (pid) => {
+  const handleDelete = async (pId) => {
     try {
       const { data } = await axios.delete(
-        `/api/v1/category/delete-category/${pid}`
+        `/api/v1/category/delete-category/${pId}`
       );
 
-      if (data.success) {
+      if (data?.success) {
         toast.success(`One category is deleted`);
         getAllCategory();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Something went wrong");
     }
   };
 
   return (
     <Layout title={"Dashboard - Create Category"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -123,7 +121,7 @@ const CreateCategory = () => {
                           <button
                             className="btn btn-primary ms-2"
                             onClick={() => {
-                              setVisible(true);
+                              setVisibled(true);
                               setUpdatedName(c.name);
                               setSelected(c);
                             }}
@@ -146,9 +144,11 @@ const CreateCategory = () => {
               </table>
             </div>
             <Modal
-              onCancel={() => setVisible(false)}
+              onCancel={() => setVisibled(false)}
               footer={null}
-              visible={visible}
+              visibled={visibled}
+              //visible={visible}
+              // open={visibled}
             >
               <CategoryForm
                 value={updatedName}

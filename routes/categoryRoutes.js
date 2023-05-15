@@ -12,7 +12,6 @@ const router = express.Router();
 
 //routes
 
-//create category
 router.post(
   "/create-category",
   requireSignIn,
@@ -20,7 +19,6 @@ router.post(
   createCategoryController
 );
 
-//update category
 router.put(
   "/update-category/:id",
   requireSignIn,
@@ -28,13 +26,10 @@ router.put(
   updateCategoryConrtoller
 );
 
-//all category
 router.get("/get-category", categoryController);
 
-//get single catgeory
 router.get("/single-category/:slug", singleCategoryController);
 
-//delete caetgory by id
 router.delete(
   "/delete-category/:id",
   requireSignIn,
