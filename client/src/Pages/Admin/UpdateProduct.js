@@ -1,9 +1,9 @@
+import axios from "axios";
+import { Select } from "antd";
+import toast from "react-hot-toast";
 import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout/Layout";
 import AdminMenu from "./../../components/Layout/AdminMenu";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
 const { Option } = Select;
@@ -91,12 +91,11 @@ const UpdateProduct = () => {
   const handleDelete = async () => {
     try {
       let answer = window.prompt(
-        "Are you sure, you want to delete this product?"
+        'Type "yes", if you want to delete this product?'
       );
       if (!answer) return;
-      const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
-      );
+      // const { data } =
+      await axios.delete(`/api/v1/product/delete-product/${id}`);
       toast.success("Product deleted successfully");
       navigate("/dashboard/admin/products");
     } catch (error) {
