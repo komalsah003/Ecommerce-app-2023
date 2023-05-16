@@ -20,14 +20,14 @@ const CreateCategory = () => {
         name,
       });
       if (data?.success) {
-        toast.success(`${name} is created`);
+        toast.success(`${name} category is created`);
         getAllCategory();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong in the input form");
+      toast.error("Error while creating category");
     }
   };
 
@@ -39,7 +39,7 @@ const CreateCategory = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while fetching categories");
+      toast.error("Error while fetching categories");
     }
   };
 
@@ -55,7 +55,7 @@ const CreateCategory = () => {
         { name: updatedName }
       );
 
-      if (data.success) {
+      if (data?.success) {
         toast.success(`${updatedName} is updated`);
         setSelected(null);
         setUpdatedName("");
@@ -66,7 +66,7 @@ const CreateCategory = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while updating category name");
+      toast.error("Error while updating category name");
     }
   };
 
@@ -77,7 +77,7 @@ const CreateCategory = () => {
       );
 
       if (data?.success) {
-        toast.success(`One category is deleted`);
+        toast.success("One category is deleted");
         getAllCategory();
       } else {
         toast.error(data.message);

@@ -7,20 +7,14 @@ import {
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 
-//router object
 const router = express.Router();
 
-//Routing
-//REGISTER || METHOD POST
 router.post("/register", registerController);
 
-//LOGIN || POST
 router.post("/login", loginController);
 
-//FORGOT PASSWORD || POST
 router.post("/forgot-password", forgotPasswordController);
 
-//TEST routes
 router.get("/test", requireSignIn, isAdmin, testController);
 
 //protected user-route path

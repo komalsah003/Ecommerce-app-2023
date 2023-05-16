@@ -14,7 +14,6 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  //login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,7 +36,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error("Error while logging");
     }
   };
   return (
@@ -45,6 +44,7 @@ const Login = () => {
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
           <h4 className="title">LOGIN FORM </h4>
+
           <div className="mb-3">
             <input
               type="email"
@@ -71,14 +71,15 @@ const Login = () => {
           <div className="mb-3">
             <button
               type="button"
-              className="btn forgot-pin"
+              className="btn forgot-btn"
               onClick={() => {
                 navigate("/forgot-password");
               }}
             >
-              Forgot password
+              Forgot Password
             </button>
           </div>
+
           <button type="submit" className="btn btn-primary">
             LOGIN
           </button>

@@ -1,5 +1,6 @@
 /* ========register========= */
 .form-container{
+    margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +11,7 @@
 }
 
 .form-container form{
-    box-shadow: rgba(0,0,0,0);
+    box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
     padding: 20px;
     background-color: #fff;
 }
@@ -33,7 +34,7 @@
     border-radius: 0;
     background-color: #000;
     color: white;
-    width: 350px;
+    width: 250px;
 }
 
 .form-container form button:hover{
@@ -42,5 +43,14 @@
     background:-webkit-linear-gradient(
         to right,#434343,#000000);
     background:linear-gradient(
-        to right,#434343,#000000)
+        to right,#434343,#000000);
+}
+
+.forget-btn{
+    background-color: #434343a4 !important;
+    border: 0 !important;
+}
+
+.forget-btn:hover{
+    color:white !important;
 }

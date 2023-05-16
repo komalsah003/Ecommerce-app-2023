@@ -27,7 +27,7 @@ const CreateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while fetching categories");
+      toast.error("Error while fetching categories");
     }
   };
 
@@ -59,7 +59,7 @@ const CreateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while creating product");
+      toast.error("Error while creating product");
     }
   };
 

@@ -6,8 +6,8 @@ const Footer = () => {
     <div className="footer">
       <h5 className="text-center">All Right Reserved &copy; KomalSah</h5>
       <p className="text-center mt-3">
-        <Link to="/About">About</Link> |<Link to="/Contact">Contact</Link>|
-        <Link to="/Policy">Privacy Policy</Link>
+        <Link to="/about">About</Link> |<Link to="/contact">Contact</Link>|
+        <Link to="/policy">Privacy Policy</Link>
       </p>
     </div>
   );

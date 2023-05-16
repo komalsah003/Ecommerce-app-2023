@@ -6,7 +6,6 @@ import { toast } from "react-hot-toast";
 const Header = () => {
   const [auth, setAuth] = useAuth();
 
-  //logout
   const handleLogOut = () => {
     setAuth({
       ...auth,
@@ -46,15 +45,15 @@ const Header = () => {
                   Catagories
                 </NavLink>
               </li>
-              {!auth.user ? (
+              {!auth?.user ? (
                 <>
-                  <li className="nav-item">
-                    <NavLink to="/register" className="nav-link" href="#">
+                  <li className="nav-item" href="#">
+                    <NavLink to="/register" className="nav-link">
                       Register
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink to="/login" className="nav-link" href="#">
+                  <li className="nav-item" href="#">
+                    <NavLink to="/login" className="nav-link">
                       Login
                     </NavLink>
                   </li>
