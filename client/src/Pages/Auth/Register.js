@@ -15,7 +15,6 @@ const Register = () => {
   const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
-  //submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,15 +35,15 @@ const Register = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error("Error while registering");
     }
   };
 
   return (
-    <Layout title="Create account- Ecommerce App">
+    <Layout title="Register - Ecommerce App">
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
-          <h4 className="title">CREATE YOUR ACCOUNT </h4>
+          <h4 className="title">Create Your Account </h4>
           <div className="mb-3">
             <input
               type="text"

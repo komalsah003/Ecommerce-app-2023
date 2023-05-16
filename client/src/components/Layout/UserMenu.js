@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const AdminMenu = () => {
+const UserMenu = () => {
   return (
     <>
       <div className="text-center">
@@ -31,4 +31,4 @@ const AdminMenu = () => {
   );
 };
 
-export default AdminMenu;
+export default UserMenu;

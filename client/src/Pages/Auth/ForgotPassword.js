@@ -24,7 +24,6 @@ const ForgotPassword = () => {
 
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
-
         navigate("/login");
       } else {
         toast.error(res.data.message);
@@ -50,17 +49,17 @@ const ForgotPassword = () => {
               placeholder="Enter Your Email"
               required
             />
-            <div className="mb-3">
-              <input
-                type="text"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-                className="form-control"
-                id="exampleInputEmail1"
-                placeholder="What is your favorite pet?"
-                required
-              />
-            </div>
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="What is your favorite pet?"
+              required
+            />
           </div>
           <div className="mb-3">
             <input

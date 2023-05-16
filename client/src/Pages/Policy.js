@@ -1,14 +1,14 @@
 import React from "react";
-import Layout from "../components/Layout/Layout";
+import Layout from "./../components/Layout/Layout";
 
 const Policy = () => {
   return (
-    <Layout title={"Privacy Policy"}>
+    <Layout title={"Privacy Policy - Ecommerce App"}>
       <div className="row contactus">
         <div className="col-md-6">
           <img
             src="/images/contactus.jpeg"
-            alt="contact-us"
+            alt="contactus"
             style={{ width: "100%" }}
           />
         </div>

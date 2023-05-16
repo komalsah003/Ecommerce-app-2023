@@ -1,5 +1,4 @@
 import slugify from "slugify";
-// import categoryModel from "../models/categoryModel.js";
 import productModel from "../models/productModel.js";
 import fs from "fs";
 
@@ -47,7 +46,6 @@ export const createProductController = async (req, res) => {
   }
 };
 
-//get all products
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
@@ -66,7 +64,7 @@ export const getProductController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in getting products",
+      message: "Error in fetching products",
       error: error.message,
     });
   }
@@ -87,13 +85,13 @@ export const getSingleProductController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while getting single product",
+      message: "Error while fetching single product",
       error,
     });
   }
 };
 
-export const getProductPhotoController = async (req, res) => {
+export const productPhotoController = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.pid).select("photo");
     if (product.photo.data) {
@@ -104,7 +102,7 @@ export const getProductPhotoController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while fetching product photo",
+      message: "Error while fetching photo",
       error,
     });
   }
@@ -182,7 +180,7 @@ export const productFilterController = async (req, res) => {
     const { checked, radio } = req.body;
     let args = {};
     if (checked.length > 0) args.category = checked;
-    if (radio.length) args.price = { $gte: radio[0], $gte: radio[1] };
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
     const products = await productModel.find(args);
     res.status(200).send({
       success: true,

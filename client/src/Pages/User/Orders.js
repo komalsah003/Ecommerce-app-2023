@@ -1,17 +1,17 @@
 import React from "react";
-import Layout from "../../components/Layout/Layout";
+import Layout from "./../../components/Layout/Layout";
 import UserMenu from "../../components/Layout/UserMenu";
 
 const Orders = () => {
   return (
-    <Layout title={"Your Orders"}>
-      <div className="container-fluid m-3 p-3">
+    <Layout title={"Your Orders - Ecommerce App"}>
+      <div className="container-fluid m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <UserMenu />
           </div>
           <div className="col-md-9">
-            <h1>All Orders</h1>
+            <h1 className="text-center">All Orders</h1>
           </div>
         </div>
       </div>

@@ -26,16 +26,17 @@ const UpdateProduct = () => {
       const { data } = await axios.get(
         `/api/v1/product/get-product/${params.slug}`
       );
-      setCategory(data.product.category._id);
       setName(data.product.name);
+      setId(data.product._id);
       setDescription(data.product.description);
       setPrice(data.product.price);
       setQuantity(data.product.quantity);
       setShipping(data.product.shipping);
-      setId(data.product._id);
+      setCategory(data.product.category._id);
+      // setPhoto(data.product.photo);
     } catch (error) {
       console.log(error);
-      // toast.error("Something went while fetching single product");
+      toast.error("Error while fetching single product");
     }
   };
 
@@ -52,7 +53,7 @@ const UpdateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while fetching categories");
+      toast.error("Error while fetching categories");
     }
   };
 
@@ -84,25 +85,27 @@ const UpdateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while updating product");
+      toast.error("Error while updating product");
     }
   };
 
   const handleDelete = async () => {
     try {
-      let answer = window.prompt(
-        'Type "yes", if you want to delete this product?'
+      let ans = window.prompt(
+        "Type 'yes', if you want to delete this product."
       );
-      if (!answer) return;
+      if (!ans) return;
+
       // const { data } =
       await axios.delete(`/api/v1/product/delete-product/${id}`);
       toast.success("Product deleted successfully");
       navigate("/dashboard/admin/products");
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while deleting product");
+      toast.error("Error while deleting product");
     }
   };
+
   return (
     <Layout title={"Dashboard - Create Product"}>
       <div className="container-fluid m-3 p-3">
@@ -215,7 +218,7 @@ const UpdateProduct = () => {
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-3">
                   <button className="btn btn-primary" onClick={handleUpdate}>
                     UPDATE PRODUCT
@@ -226,18 +229,18 @@ const UpdateProduct = () => {
                     DELETE PRODUCT
                   </button>
                 </div>
-              </div>
-              {/* <div className="mb-3">
+              </div> */}
+              <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>
                   UPDATE PRODUCT
                 </button>
               </div>
-          
+
               <div className="mb-3">
                 <button className="btn btn-danger" onClick={handleDelete}>
                   DELETE PRODUCT
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
