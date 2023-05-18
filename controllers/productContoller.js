@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
+import categoryModel from "../models/categoryModel.js";
 import fs from "fs";
 
 export const createProductController = async (req, res) => {
@@ -72,14 +73,14 @@ export const getProductController = async (req, res) => {
 
 export const getSingleProductController = async (req, res) => {
   try {
-    const singleProduct = await productModel
+    const product = await productModel
       .findOne({ slug: req.params.slug })
       .select("-photo")
       .populate("category");
     res.status(200).send({
       success: true,
       message: "Single product fetched successfully",
-      singleProduct,
+      product,
     });
   } catch (error) {
     console.log(error);
@@ -191,6 +192,117 @@ export const productFilterController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error while filtering products",
+      error,
+    });
+  }
+};
+
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in product count",
+      error,
+    });
+  }
+};
+
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    const page = req.params.get ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in per page control",
+      error,
+    });
+  }
+};
+
+export const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const result = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.send({
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in search control API",
+      error,
+    });
+  }
+};
+
+export const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error while fetching related products",
+      error,
+    });
+  }
+};
+
+export const categoryProductController = async (req, res) => {
+  try {
+    const category = await categoryModel.findOne({
+      slug: req.params.slug,
+    });
+    const products = await productModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error while fetching category wise products",
       error,
     });
   }
