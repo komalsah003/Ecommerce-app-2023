@@ -11,7 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setaddress] = useState("");
+  const [address, setAddress] = useState("");
   const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ const Register = () => {
             <input
               type="text"
               value={address}
-              onChange={(e) => setaddress(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter Your Address"
