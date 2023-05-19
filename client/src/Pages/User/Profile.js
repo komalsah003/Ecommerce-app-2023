@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout/Layout";
 import UserMenu from "../../components/Layout/UserMenu";
 import { useAuth } from "../../context/auth";
@@ -12,13 +12,12 @@ const Profile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setaddress] = useState("");
-  const navigate = useNavigate();
+  const [address, setAddress] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/register", {
+      const { data } = await axios.put("/api/v1/auth/profile", {
         name,
         email,
         password,
@@ -26,17 +25,30 @@ const Profile = () => {
         address,
       });
 
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
-        navigate("/login");
+      if (data?.error) {
+        toast.error(data?.error);
       } else {
-        toast.error(res.data.message);
+        setAuth({ ...auth, user: data?.updatedUser });
+        let ls = localStorage.getItem("auth");
+        ls = JSON.parse(ls);
+        ls.user = data.updatedUser;
+        localStorage.setItem("auth", JSON.stringify(ls));
+        toast.success("Profile updated successfully");
       }
     } catch (error) {
       console.log(error);
       toast.error("Error while registering");
     }
   };
+
+  useEffect(() => {
+    const { name, email, phone, address } = auth?.user;
+    setName(name);
+    setEmail(email);
+    setPhone(phone);
+    setAddress(address);
+  }, [auth?.user]);
+
   return (
     <Layout title={"Your Profile - Ecommerce App"}>
       <div className="container-fluid m-3 p-3 ">
@@ -57,7 +69,6 @@ const Profile = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Name"
-                    required
                     autoFocus
                   />
                 </div>
@@ -69,7 +80,7 @@ const Profile = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Email"
-                    required
+                    disabled
                   />
                 </div>
                 <div className="mb-3">
@@ -80,7 +91,6 @@ const Profile = () => {
                     className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Enter Your Password"
-                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -91,18 +101,16 @@ const Profile = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Phone Number"
-                    required
                   />
                 </div>
                 <div className="mb-3">
                   <input
                     type="text"
                     value={address}
-                    onChange={(e) => setaddress(e.target.value)}
+                    onChange={(e) => setAddress(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Address"
-                    required
                   />
                 </div>
 
