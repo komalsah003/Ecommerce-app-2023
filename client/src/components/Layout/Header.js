@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
@@ -23,7 +23,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -75,12 +75,12 @@ const Header = () => {
               </li>
               {!auth?.user ? (
                 <>
-                  <li className="nav-item" href="#">
+                  <li className="nav-item">
                     <NavLink to="/register" className="nav-link">
                       Register
                     </NavLink>
                   </li>
-                  <li className="nav-item" href="#">
+                  <li className="nav-item">
                     <NavLink to="/login" className="nav-link">
                       Login
                     </NavLink>
@@ -124,11 +124,11 @@ const Header = () => {
                 </>
               )}
               <li className="nav-item">
-                <Badge count={cart?.length} showZero>
-                  <NavLink to="/cart" className="nav-link">
+                <NavLink to="/cart" className="nav-link">
+                  <Badge count={cart?.length} showZero offset={[10, -5]}>
                     Cart
-                  </NavLink>
-                </Badge>
+                  </Badge>
+                </NavLink>
               </li>
             </ul>
           </div>

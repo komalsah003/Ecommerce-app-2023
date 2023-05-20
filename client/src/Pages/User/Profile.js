@@ -3,7 +3,7 @@ import Layout from "./../../components/Layout/Layout";
 import UserMenu from "../../components/Layout/UserMenu";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Profile = () => {
@@ -37,7 +37,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error while registering");
+      toast.error("Error while updating");
     }
   };
 
@@ -51,14 +51,13 @@ const Profile = () => {
 
   return (
     <Layout title={"Your Profile - Ecommerce App"}>
-      <div className="container-fluid m-3 p-3 ">
+      <div className="container-fluid m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className="col-md-9">
-            <h1>Your Profile</h1>
-            <div className="form-container" style={{ minHeight: "90vh" }}>
+          <div className="col-md-8">
+            <div className="form-container" style={{ marginTop: "-40px" }}>
               <form onSubmit={handleSubmit}>
                 <h4 className="title">Update Profile</h4>
                 <div className="mb-3">

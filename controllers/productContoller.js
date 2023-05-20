@@ -31,7 +31,7 @@ export const braintreeTokenController = async (req, res) => {
 
 export const braintreePaymentController = async (req, res) => {
   try {
-    const { cart, nonce } = req.body;
+    const { nonce, cart } = req.body;
     let total = 0;
 
     cart.map((i) => {
@@ -72,19 +72,19 @@ export const createProductController = async (req, res) => {
 
     switch (true) {
       case !name:
-        return res.status(500).send({ error: "Name is required" });
+        return res.status(500).send({ message: "Name is required" });
       case !description:
-        return res.status(500).send({ error: "Description is required" });
+        return res.status(500).send({ message: "Description is required" });
       case !price:
-        return res.status(500).send({ error: "Price is required" });
+        return res.status(500).send({ message: "Price is required" });
       case !category:
-        return res.status(500).send({ error: "Category is required" });
+        return res.status(500).send({ message: "Category is required" });
       case !quantity:
-        return res.status(500).send({ error: "Quantity is required" });
+        return res.status(500).send({ message: "Quantity is required" });
       case !photo && photo.size > 1024:
         return res
           .status(500)
-          .send({ error: "Photo is required and should be less than 1MB" });
+          .send({ message: "Photo is required and should be less than 1MB" });
     }
 
     const products = new productModel({ ...req.fields, slug: slugify(name) });
@@ -195,19 +195,19 @@ export const updateProductController = async (req, res) => {
 
     switch (true) {
       case !name:
-        return res.status(500).send({ error: "Name is required" });
+        return res.status(500).send({ message: "Name is required" });
       case !description:
-        return res.status(500).send({ error: "Description is required" });
+        return res.status(500).send({ message: "Description is required" });
       case !price:
-        return res.status(500).send({ error: "Price is required" });
+        return res.status(500).send({ message: "Price is required" });
       case !category:
-        return res.status(500).send({ error: "Category is required" });
+        return res.status(500).send({ message: "Category is required" });
       case !quantity:
-        return res.status(500).send({ error: "Quantity is required" });
+        return res.status(500).send({ message: "Quantity is required" });
       case !photo && photo.size > 1024:
         return res
           .status(500)
-          .send({ error: "Photo is required and should be less than 1MB" });
+          .send({ message: "Photo is required and should be less than 1MB" });
     }
 
     const products = await productModel.findByIdAndUpdate(
@@ -243,6 +243,7 @@ export const productFilterController = async (req, res) => {
     let args = {};
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+
     const products = await productModel.find(args);
     res.status(200).send({
       success: true,
@@ -269,7 +270,7 @@ export const productCountController = async (req, res) => {
     console.log(error);
     res.status(400).send({
       success: false,
-      message: "Error in product count",
+      message: "Error in counting of the product",
       error,
     });
   }
@@ -277,7 +278,7 @@ export const productCountController = async (req, res) => {
 
 export const productListController = async (req, res) => {
   try {
-    const perPage = 6;
+    const perPage = 9;
     const page = req.params.get ? req.params.page : 1;
     const products = await productModel
       .find({})
@@ -302,7 +303,7 @@ export const productListController = async (req, res) => {
 export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
-    const result = await productModel
+    const results = await productModel
       .find({
         $or: [
           { name: { $regex: keyword, $options: "i" } },
@@ -310,9 +311,7 @@ export const searchProductController = async (req, res) => {
         ],
       })
       .select("-photo");
-    res.send({
-      result,
-    });
+    res.json(results);
   } catch (error) {
     console.log(error);
     res.status(400).send({
@@ -332,7 +331,7 @@ export const relatedProductController = async (req, res) => {
         _id: { $ne: pid },
       })
       .select("-photo")
-      .limit(3)
+      .limit(6)
       .populate("category");
     res.status(200).send({
       success: true,

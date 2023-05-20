@@ -9,7 +9,7 @@ import CategoryForm from "../../components/Form/CategoryForm";
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
-  const [visibled, setVisibled] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(null);
   const [updatedName, setUpdatedName] = useState("");
 
@@ -59,7 +59,7 @@ const CreateCategory = () => {
         toast.success(`${updatedName} is updated`);
         setSelected(null);
         setUpdatedName("");
-        setVisibled(false);
+        setVisible(false);
         getAllCategory();
       } else {
         toast.error(data.message);
@@ -77,7 +77,7 @@ const CreateCategory = () => {
       );
 
       if (data?.success) {
-        toast.success("One category is deleted");
+        toast.success(`${data.name} category is deleted`);
         getAllCategory();
       } else {
         toast.error(data.message);
@@ -121,7 +121,7 @@ const CreateCategory = () => {
                           <button
                             className="btn btn-primary ms-2"
                             onClick={() => {
-                              setVisibled(true);
+                              setVisible(true);
                               setUpdatedName(c.name);
                               setSelected(c);
                             }}
@@ -144,11 +144,9 @@ const CreateCategory = () => {
               </table>
             </div>
             <Modal
-              onCancel={() => setVisibled(false)}
+              onCancel={() => setVisible(false)}
               footer={null}
-              visibled={visibled}
-              //visible={visible}
-              // open={visibled}
+              visible={visible}
             >
               <CategoryForm
                 value={updatedName}
