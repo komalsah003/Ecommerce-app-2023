@@ -25,7 +25,12 @@ const Search = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
-                  <h6 className="card-number">Rs.{p.price}</h6>
+                  <h5 className="card-title card-price">
+                    {p.price.toLocaleString("INR", {
+                      style: "currency",
+                      currency: "INR",
+                    })}
+                  </h5>
                   <p className="card-text">
                     {p.description.substring(0, 30)}...
                   </p>

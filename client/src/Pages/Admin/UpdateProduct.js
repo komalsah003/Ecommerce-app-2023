@@ -153,7 +153,8 @@ const UpdateProduct = () => {
                       alt="product_photo"
                       height={"200px"}
                       className="img img-responsive"
-                    />
+                    />{" "}
+                    {/* {photo.name} */}
                   </div>
                 ) : (
                   <div className="text-center">
@@ -188,7 +189,7 @@ const UpdateProduct = () => {
                 <input
                   type="number"
                   value={price}
-                  placeholder="Add price of the product"
+                  placeholder="Write price of the product"
                   className="form-control"
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -218,28 +219,17 @@ const UpdateProduct = () => {
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
-              {/* <div className="row">
-                <div className="col-3">
+              <div className="row">
+                <div className="col-7">
                   <button className="btn btn-primary" onClick={handleUpdate}>
                     UPDATE PRODUCT
                   </button>
                 </div>
-                <div className="col-3">
+                <div className="col-5">
                   <button className="btn btn-danger" onClick={handleDelete}>
                     DELETE PRODUCT
                   </button>
                 </div>
-              </div> */}
-              <div className="mb-3">
-                <button className="btn btn-primary" onClick={handleUpdate}>
-                  UPDATE PRODUCT
-                </button>
-              </div>
-
-              <div className="mb-3">
-                <button className="btn btn-danger" onClick={handleDelete}>
-                  DELETE PRODUCT
-                </button>
               </div>
             </div>
           </div>

@@ -6,6 +6,8 @@ import { Prices } from "../components/Prices";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
+import { AiOutlineReload } from "react-icons/ai";
+import "../styles/HomePage.css";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +15,7 @@ const HomePage = () => {
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setpage] = useState(1);
+  const [page, setPage] = useState(1);
   const [cart, setCart] = useCart();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -104,6 +106,13 @@ const HomePage = () => {
 
   return (
     <Layout tittle={"All Products - Best offers"}>
+      <img
+        src="/images/banner.jpg"
+        alt="bannerimage"
+        className="banner-img"
+        width={"100%"}
+        height={"350px"}
+      />
       <div className="container-fluid row mt-3 home-page">
         <div className="col-md-3 filters">
           <h4 className="text-center">Filter by category</h4>
@@ -129,7 +138,7 @@ const HomePage = () => {
             </Radio.Group>
           </div>
 
-          <div className="d-flex flex-column p-3">
+          <div className="d-flex flex-column">
             <button
               className="btn btn-primary"
               onClick={() => window.location.reload()}
@@ -143,37 +152,47 @@ const HomePage = () => {
           <h1 className="text-center">All products</h1>
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
-              <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
+              <div className="card m-2" key={p._id}>
                 <img
                   src={`/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
-                  <h6 className="card-number">Rs.{p.price}</h6>
+                  <div className="car-name-price">
+                    <h5 className="card-title">{p.name.substring(0, 20)}...</h5>
+                    <h5 className="card-title card-price">
+                      {p.price.toLocaleString("INR", {
+                        style: "currency",
+                        currency: "INR",
+                      })}
+                    </h5>
+                  </div>
                   <p className="card-text">
                     {p.description.substring(0, 30)}...
                   </p>
-                  <button
-                    className="btn btn-primary ms-1"
-                    onClick={(e) => navigate(`/product/${p.slug}`)}
-                  >
-                    More details
-                  </button>
-                  <button
-                    className="btn btn-dark ms-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item Added to cart");
-                    }}
-                  >
-                    Add to cart
-                  </button>
+                  <div className="card-name-price">
+                    <button
+                      className="btn btn-info ms-1"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
+                      More details
+                    </button>
+
+                    <button
+                      className="btn btn-dark ms-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item Added to cart");
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -181,13 +200,20 @@ const HomePage = () => {
           <div className="m-2 p-3">
             {products && products.length < total && (
               <button
-                className="btn btn-warning"
+                className="btn loadmore"
                 onClick={(e) => {
                   e.preventDefault();
-                  setpage(page + 1);
+                  setPage(page + 1);
                 }}
               >
-                {loading ? "Loading ..." : "Loadmore"}
+                {loading ? (
+                  "Loading ..."
+                ) : (
+                  <>
+                    {""}
+                    Loadmore <AiOutlineReload />
+                  </>
+                )}
               </button>
             )}
           </div>

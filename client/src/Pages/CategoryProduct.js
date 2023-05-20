@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import axios from "axios";
+import "../styles/CategoryProductStyles.css";
 import { useNavigate, useParams } from "react-router-dom";
 
 const CategoryProduct = () => {
@@ -12,7 +13,7 @@ const CategoryProduct = () => {
   const getProductByCategory = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product/product-category/:${params.slug}`
+        `/api/v1/product/product-category/${params.slug}`
       );
       setProducts(data?.products);
       setCategory(data?.category);
@@ -27,11 +28,11 @@ const CategoryProduct = () => {
 
   return (
     <Layout>
-      <div className="container mt-3">
+      <div className="container mt-3 category">
         <h3 className="text-center">Category - {category?.name}</h3>
         <h6 className="text-center">{products?.length} results found</h6>
         <div className="row">
-          <div className="col-md-9">
+          <div className="col-md-9 offset-1">
             <div className="d-flex flex-wrap">
               {products?.map((p) => (
                 <div
@@ -45,18 +46,30 @@ const CategoryProduct = () => {
                     alt={p.name}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{p.name}</h5>
-                    <h6 className="card-number">Rs.{p.price}</h6>
+                    <div className="card-name-price">
+                      <h5 className="card-title">{p.name}</h5>
+                      <h5
+                        className="card-title card-price"
+                        style={{ color: "green" }}
+                      >
+                        {p.price.toLocaleString("INR", {
+                          style: "currency",
+                          currency: "INR",
+                        })}
+                      </h5>
+                    </div>
                     <p className="card-text">
                       {p.description.substring(0, 30)}...
                     </p>
-                    <button
-                      className="btn btn-infos ms-1"
-                      onClick={(e) => navigate(`/product/${p.slug}`)}
-                    >
-                      More details
-                    </button>
-                    <button className="btn btn-dark ms-1">Add to cart</button>
+                    <div className="card-name-price">
+                      <button
+                        className="btn btn-info ms-1"
+                        onClick={(e) => navigate(`/product/${p.slug}`)}
+                      >
+                        More details
+                      </button>
+                      <button className="btn btn-dark ms-1">Add to cart</button>
+                    </div>
                   </div>
                 </div>
               ))}

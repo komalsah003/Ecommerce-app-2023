@@ -1,64 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
 
-*{
-  padding: 0;
+* {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* font-family: 'Playfair Display', serif;
-font-family: 'Poppins', sans-serif; */
-
-
-
-.navbar{
-  font-family: 'Poppins', sans-serif; 
+/* font-family: 'Poppins', sans-serif; */
+/* font-family: 'Playfair Display', serif; */
+.navbar {
+  font-family: "Poppins", sans-serif;
   font-size: 17px;
   line-height: 26px;
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
-  --webkit-box-shadow:0 8px 6px -6px gray;
+  --webkit-box-shadow: 0 8px 6px -6px gray;
   border-bottom: solid gray !important;
 }
 
-.nav-link{
+.nav-link {
   font-weight: 300 !important;
 }
 
-.active{
+.active {
   border-bottom: 2px solid black;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-weight: 700;
-  font-family: "roboto",sans-serif;
+  font-family: "roboto", sans-serif;
   letter-spacing: 3px;
 }
 
+.search-form {
+  margin-right: 10px;
+  margin-top: 4px;
+}
 
+.search-form input {
+  border: none;
+  border-radius: 0;
+}
 
-.footer{
+.search-form button {
+  background-color: #000000;
+  border-radius: 0;
+  color: white;
+}
+
+.footer {
   color: white;
   padding: 25px;
   background: #000000;
-  background: -webkit-linear-gradient(to right ,#434343,#000000);
-  background: linear-gradient(to right,#434343,#000000);
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,
+      #434343,
+      #000000);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000);
 }
 
-.footer a{
+.footer a {
   text-decoration: none;
-  padding: 10px;
   color: white;
+  padding: 10px;
 }
 
-.footer a:hover{
+.footer a:hover {
   color: #ffefba;
   border-bottom: 1px solid #ffefba;
 }
 
-
-
-.pnf{
+.pnf {
   display: flex;
   min-height: 65vh;
   flex-direction: column;
@@ -66,16 +79,16 @@ font-family: 'Poppins', sans-serif; */
   justify-content: center;
 }
 
-.pnf-title{
+.pnf-title {
   font-size: 100px;
   font-weight: 700;
 }
 
-.pnf-heading{
+.pnf-heading {
   font-weight: normal;
 }
 
-.pnf-btn{
+.pnf-btn {
   color: black;
   border: 1px solid black;
   text-decoration: none;
@@ -83,12 +96,12 @@ font-family: 'Poppins', sans-serif; */
   margin-top: 10px;
 }
 
-.pnf-btn:hover{
+.pnf-btn:hover {
   background-color: black;
   color: white;
 }
 
-.contactus{
+.contactus {
   margin: 0;
   padding: 0;
   height: 70vh;
@@ -97,12 +110,29 @@ font-family: 'Poppins', sans-serif; */
   justify-content: center;
 }
 
- .dashboard{
-  margin-top: 100px !important;
-} 
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}
 
-/* .dashboard-menu h4{
+.cat-btn {
+  padding: 40px 0px;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.cat-btn:hover {
+  background-color: #434343;
+  color: white;
+}
+
+
+.dashboard {
+  margin-top: 100px !important;
+}
+
+.dashboard-menu h4 {
   background-color: #434343 !important;
   color: white;
   padding: 20px 0px;
-} */
+}
